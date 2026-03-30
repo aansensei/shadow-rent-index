@@ -65,7 +65,7 @@ Dự án được xây dựng dựa trên kiến trúc ETL (Extract, Transform, 
 3. **Load (Tải dữ liệu):** Dữ liệu sạch được nạp tự động vào hệ quản trị cơ sở dữ liệu quan hệ PostgreSQL.
 4. **Serve (Phân phối):** Các View SQL tự động tổng hợp dữ liệu để theo dõi trung bình trượt của Đơn giá trên mỗi mét vuông, tạo nền tảng cho Chỉ số Shadow Rent.
 
-### Công nghệ sử dụng
+### Các yêu cầu kĩ thuật
 
 * **Ngôn ngữ:** Python 3
 * **Thu thập dữ liệu:** Selenium WebDriver, BeautifulSoup4
