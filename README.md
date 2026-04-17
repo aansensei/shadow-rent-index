@@ -2,6 +2,8 @@
 
 ![Python](https://img.shields.io/badge/Python-3.10+-blue.svg) ![Database](https://img.shields.io/badge/Database-PostgreSQL-informational.svg) ![Frontend](https://img.shields.io/badge/Frontend-Streamlit-red.svg) ![Pipeline](https://img.shields.io/badge/Pipeline-Automated_ETL-orange.svg)
 
+**[Live Demo App: The Shadow Rent Oracle](https://shadow-rent-index-ncta.streamlit.app/)**
+
 **[Read in English](#english-version) | [Đọc bằng Tiếng Việt](#vietnamese-version)**
 
 ---
