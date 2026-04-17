@@ -20,7 +20,7 @@ def get_data():
     port = os.getenv("DB_PORT")
     db = os.getenv("DB_NAME")
 
-    db_url = f"postgresql://{user}:{pwd}@{host}:{port}/{db}"
+    db_url = f"postgresql://{user}:{pwd}@{host}:{port}/{db}?sslmode=require"
     engine = create_engine(db_url)
 
     sql = "SELECT * FROM shadow_rent_index;"
