@@ -20,6 +20,7 @@ def get_data():
     port = os.getenv("DB_PORT")
     db = os.getenv("DB_NAME")
 
+    # adding sslmode=require for Neon cloud connection
     db_url = f"postgresql://{user}:{pwd}@{host}:{port}/{db}?sslmode=require"
     engine = create_engine(db_url)
 
@@ -41,7 +42,7 @@ except Exception as e:
     st.error(f"Rip, cannot connect to db: {e}")
     st.stop()
 
-# mapping zip codes to actual madison neighborhoods so it's readable
+# mapping zip codes to actual madison neighborhoods
 zip_map = {
     '53703': 'Downtown / Isthmus',
     '53704': 'East / North',
@@ -54,7 +55,8 @@ zip_map = {
     '53527': 'Cottage Grove',
     '53532': 'DeForest',
     '53593': 'Verona',
-    '53597': 'Waunakee'
+    '53597': 'Waunakee',
+    '53706': 'UW Madison Campus'
 }
 
 # create a new column combining zip and name
@@ -74,27 +76,33 @@ with tab1:
     st.markdown("### Madison Rental Market Map")
     st.write("Live spot prices directly from the market. No 6-month government delay.")
 
-    # sort the new area names alphabetically (which also sorts them by zip number)
-    areas = sorted(df['area_name'].unique())
+    # adding 'ALL' option to the lists
+    areas = ["ALL"] + sorted(df['area_name'].unique().tolist())
+    room_types = ["ALL"] + sorted([int(x) for x in df['room_type'].unique()])
 
     col1, col2 = st.columns(2)
     with col1:
         pick_area = st.selectbox("Select Neighborhood", areas)
     with col2:
-        pick_bed = st.selectbox(
-            "Select Room Type (0 = Studio)", sorted(df['room_type'].unique()))
+        pick_bed = st.selectbox("Select Room Type (0 = Studio)", room_types)
 
-    # extract the raw zip code back from the selected string (e.g. "53703 - Downtown" -> "53703")
-    pick_zip = pick_area.split(" ")[0]
+    # logical filtering based on selections
+    sub_df = df.copy()
 
-    # filter based on what user picked
-    sub_df = df[(df['zip_code'] == pick_zip) & (df['room_type'] == pick_bed)]
+    if pick_area != "ALL":
+        pick_zip = pick_area.split(" ")[0]
+        sub_df = sub_df[sub_df['zip_code'] == pick_zip]
 
+    if pick_bed != "ALL":
+        sub_df = sub_df[sub_df['room_type'] == pick_bed]
+
+    # calculating metrics
     if not sub_df.empty:
-        mean_price = sub_df['avg_rent_price'].values[0]
-        count = sub_df['total_listings'].values[0]
-        max_p = sub_df['max_price'].values[0]
-        min_p = sub_df['min_price'].values[0]
+        # for 'ALL' we take the average of averages and sum of listings
+        mean_price = sub_df['avg_rent_price'].mean()
+        count = sub_df['total_listings'].sum()
+        max_p = sub_df['max_price'].max()
+        min_p = sub_df['min_price'].min()
 
         # 4 core metrics layout
         m1, m2, m3, m4 = st.columns(4)
@@ -116,7 +124,8 @@ with tab1:
         '53715': [43.066, -89.399], '53719': [43.028, -89.501],
         '53562': [43.101, -89.497], '53590': [43.180, -89.230],
         '53527': [43.075, -89.324], '53532': [43.167, -89.260],
-        '53593': [43.021, -89.570], '53597': [43.160, -89.460]
+        '53593': [43.021, -89.570], '53597': [43.160, -89.460],
+        '53706': [43.076, -89.406]
     }
 
     df['lat'] = df['zip_code'].map(
@@ -127,8 +136,11 @@ with tab1:
     st.markdown("#### Market Supply Map")
     st.caption("Circle size = Number of listings. Color = Average price.")
 
-    # setup the map dataset
-    map_df = df[df['room_type'] == pick_bed]
+    # map data should only filter by room type (if not ALL) to show geographic spread
+    map_df = df.copy()
+    if pick_bed != "ALL":
+        map_df = map_df[map_df['room_type'] == pick_bed]
+
     if not map_df.empty:
         map_fig = px.scatter_mapbox(
             map_df,
@@ -136,7 +148,7 @@ with tab1:
             size="total_listings",
             color="avg_rent_price",
             color_continuous_scale=px.colors.sequential.Sunsetdark,
-            hover_name="area_name",  # showing the full name on hover now
+            hover_name="area_name",
             mapbox_style="carto-positron",
             zoom=10,
             height=400
@@ -148,21 +160,25 @@ with tab1:
     c1, c2 = st.columns(2)
     with c1:
         st.markdown("#### Average Price per Area")
-        # sorting by zip_code now instead of price, so the bars go in order
+        # if room type is ALL, we aggregate by area for the bar chart
+        bar_df = map_df.groupby('area_name')[
+            'avg_rent_price'].mean().reset_index()
         bar = px.bar(
-            map_df.sort_values('zip_code'),
+            bar_df.sort_values('area_name'),
             x='area_name', y='avg_rent_price', color='avg_rent_price',
             labels={'area_name': 'Neighborhood',
                     'avg_rent_price': 'Average Rent ($)'}
         )
-        # telling plotly explicitly that x is categorical text
         bar.update_xaxes(type='category')
         st.plotly_chart(bar, use_container_width=True)
 
     with c2:
         st.markdown("#### Supply Concentration")
+        # aggregate listings count by area for the pie chart
+        pie_df = map_df.groupby('area_name')[
+            'total_listings'].sum().reset_index()
         pie = px.pie(
-            map_df,
+            pie_df,
             values='total_listings', names='area_name', hole=0.5
         )
         st.plotly_chart(pie, use_container_width=True)
