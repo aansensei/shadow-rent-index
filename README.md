@@ -1,8 +1,10 @@
 # Shadow Rent Index: Real-Time Housing Affordability Tracker
 
-![Python](https://img.shields.io/badge/Python-3.10+-blue.svg) ![Database](https://img.shields.io/badge/Database-PostgreSQL-informational.svg) ![Frontend](https://img.shields.io/badge/Frontend-Streamlit-red.svg) ![Pipeline](https://img.shields.io/badge/Pipeline-Automated_ETL-orange.svg)
+![Python](https://img.shields.io/badge/Python-3.10+-blue.svg) ![Database](https://img.shields.io/badge/Database-PostgreSQL-informational.svg) ![Frontend](https://img.shields.io/badge/Frontend-Streamlit-red.svg) ![Pipeline](https://img.shields.io/badge/Pipeline-Automated_ETL-orange.svg) ![Series](https://img.shields.io/badge/Series-Hidden_Inflation_Part_1-purple.svg)
 
 **[Live Demo App: The Shadow Rent Oracle](https://shadow-rent-index-ncta.streamlit.app/)**
+
+> Part 1 of a hidden inflation research series. Part 2: **[The Shrinkflation Detective](https://github.com/james-nguyen937/shrinkflation-detective)**, tracking product size reductions that CPI also misses.
 
 **[Read in English](#english-version) | [Đọc bằng Tiếng Việt](#vietnamese-version)**
 
@@ -44,6 +46,10 @@ This project was my way to practice initializing a PostgreSQL database and manag
 * **Data Visualization:** Streamlit, Plotly Express, Mapbox
 * **DevOps:** Batch Scripting, Windows Task Scheduler
 
+### See Also
+
+This project is Part 1 of a hidden inflation research series. The Shadow Rent Index addresses the shelter cost blind spot in CPI. Part 2, **[The Shrinkflation Detective](https://github.com/james-nguyen937/shrinkflation-detective)**, extends the same framework to product-level inflation by tracking package size reductions across grocery categories.
+
 ---
 
 <a name="vietnamese-version"></a>
@@ -81,6 +87,10 @@ Dự án này là cách mình tập khởi động một cơ sở dữ liệu Po
 * **Cơ sở dữ liệu:** PostgreSQL, SQLAlchemy, psycopg2
 * **Trực quan hóa:** Streamlit, Plotly Express, Mapbox
 * **Tự động hóa:** Batch Script, Windows Task Scheduler
+
+### Xem thêm
+
+Dự án này là Phần 1 trong chuỗi nghiên cứu lạm phát ẩn. Shadow Rent Index giải quyết điểm mù chi phí nhà ở trong CPI. Phần 2, **[The Shrinkflation Detective](https://github.com/james-nguyen937/shrinkflation-detective)**, mở rộng cùng hướng tiếp cận sang lạm phát cấp độ sản phẩm bằng cách theo dõi việc giảm khối lượng đóng gói trên các danh mục hàng tạp hóa.
 
 ---
 *Last update: April 2026*
