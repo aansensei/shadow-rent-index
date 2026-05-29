@@ -1,8 +1,18 @@
+---
+title: Shadow Rent Index
+colorFrom: blue
+colorTo: green
+sdk: streamlit
+sdk_version: 1.48.0
+app_file: app/dashboard.py
+pinned: false
+---
+
 # Shadow Rent Index: Real-Time Housing Affordability Tracker
 
-![Python](https://img.shields.io/badge/Python-3.10+-blue.svg) ![Database](https://img.shields.io/badge/Database-PostgreSQL-informational.svg) ![Frontend](https://img.shields.io/badge/Frontend-Streamlit-red.svg) ![Pipeline](https://img.shields.io/badge/Pipeline-Automated_ETL-orange.svg) ![Series](https://img.shields.io/badge/Series-Hidden_Inflation_Part_1-purple.svg)
+![Python](https://img.shields.io/badge/Python-3.10+-blue.svg) ![Database](https://img.shields.io/badge/Database-PostgreSQL-informational.svg) ![Frontend](https://img.shields.io/badge/Frontend-HuggingFace-yellow.svg) ![Pipeline](https://img.shields.io/badge/Pipeline-Automated_ETL-orange.svg) ![Series](https://img.shields.io/badge/Series-Hidden_Inflation_Part_1-purple.svg)
 
-**[Live Demo App: The Shadow Rent Oracle](https://shadow-rent-index-ncta.streamlit.app/)**
+**[Live Demo App: The Shadow Rent Oracle](https://aansensei-shadow-rent-index.hf.space)**
 
 > Part 1 of a hidden inflation research series. Part 2: **[The Shrinkflation Detective](https://github.com/aansensei/shrinkflation-detective)**, tracking product size reductions that CPI also misses.
 
