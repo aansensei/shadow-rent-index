@@ -1,11 +1,3 @@
----
-title: Shadow Rent Index
-colorFrom: blue
-colorTo: green
-sdk: docker
-pinned: false
----
-
 # Shadow Rent Index: Real-Time Housing Affordability Tracker
 
 ![Python](https://img.shields.io/badge/Python-3.10+-blue.svg) ![Database](https://img.shields.io/badge/Database-PostgreSQL-informational.svg) ![Frontend](https://img.shields.io/badge/Frontend-HuggingFace-yellow.svg) ![Pipeline](https://img.shields.io/badge/Pipeline-Automated_ETL-orange.svg) ![Series](https://img.shields.io/badge/Series-Hidden_Inflation_Part_1-purple.svg)
