@@ -2,9 +2,7 @@
 title: Shadow Rent Index
 colorFrom: blue
 colorTo: green
-sdk: streamlit
-sdk_version: 1.48.0
-app_file: app/dashboard.py
+sdk: docker
 pinned: false
 ---
 
